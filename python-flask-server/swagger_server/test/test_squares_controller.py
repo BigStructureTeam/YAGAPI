@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 from swagger_server.models.error import Error
 from swagger_server.models.square import Square
+from swagger_server.models.zone import Zone
 from . import BaseTestCase
 from six import BytesIO
 from flask import json
@@ -23,8 +24,7 @@ class TestSquaresController(BaseTestCase):
                         ('lon_max', 1.2),
                         ('lon_min', 1.2),
                         ('start', 1.2),
-                        ('end', 1.2),
-                        ('type', 'type_example')]
+                        ('end', 1.2)]
         response = self.client.open('/v1/squares/average',
                                     method='GET',
                                     query_string=query_string)
@@ -41,8 +41,7 @@ class TestSquaresController(BaseTestCase):
                         ('lon_max', 1.2),
                         ('lon_min', 1.2),
                         ('start', 1.2),
-                        ('end', 1.2),
-                        ('type', 'type_example')]
+                        ('end', 1.2)]
         response = self.client.open('/v1/squares',
                                     method='GET',
                                     query_string=query_string)
@@ -52,15 +51,14 @@ class TestSquaresController(BaseTestCase):
         """
         Test case for squares_post
 
-        Create square
+        Create squares
         """
-        query_string = [('lat_max', 1.2),
-                        ('lon_min', 1.2),
-                        ('timestamp', 56),
-                        ('count', 56),
-                        ('type', 'type_example')]
+        zones = [Zone()]
+        query_string = [('timestamp', 56)]
         response = self.client.open('/v1/squares',
                                     method='POST',
+                                    data=json.dumps(zones),
+                                    content_type='application/json',
                                     query_string=query_string)
         self.assert200(response, "Response body is : " + response.data.decode('utf-8'))
 

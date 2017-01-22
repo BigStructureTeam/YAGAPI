@@ -13,4 +13,5 @@ def squares_streaming_get():
 
     :rtype: None
     """
+    
     return 'do some magic!'
